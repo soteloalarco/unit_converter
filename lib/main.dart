@@ -8,6 +8,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  double _numberFrom;
+
+  @override
+  void initState() {
+    _numberFrom = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +25,21 @@ class _MyAppState extends State<MyApp> {
           title: Text('Measures Converter'),
         ),
         body: Center(
-          child: Text('Measures Converter'),
+          child: Column(
+            children: <Widget>[
+              TextField(
+                onChanged: (text) {
+                  var rv = double.tryParse(text);
+                  if (rv != null) {
+                    setState(() {
+                      _numberFrom = rv;
+                    });
+                  }
+                },
+              ),
+              Text((_numberFrom == null) ? '' : _numberFrom.toString()),
+            ],
+          ),
         ),
       ),
     );
